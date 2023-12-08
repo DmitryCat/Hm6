@@ -2,7 +2,7 @@ package com.example.Collection.Service;
 
 import com.example.Collection.Class.Employee;
 
-import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
     Employee add(String firstName, String lastName);
@@ -11,5 +11,5 @@ public interface EmployeeService {
 
     Employee find(String firstName, String lastName);
 
-    List<Employee> getAll();
+    Map<String, Employee> getAll();
 }
