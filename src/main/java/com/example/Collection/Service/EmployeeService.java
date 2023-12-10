@@ -5,7 +5,7 @@ import com.example.Collection.Class.Employee;
 import java.util.Map;
 
 public interface EmployeeService {
-    Employee add(String firstName, String lastName);
+    Employee add(String firstName, String lastName, Integer salary, Integer department);
 
     Employee remove(String firstName, String lastName);
 
