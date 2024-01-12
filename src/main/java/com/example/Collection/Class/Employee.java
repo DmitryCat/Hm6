@@ -46,9 +46,6 @@ public class Employee {
 
     private final String lastName;
 
-    public int getSalary() {
-        return salary;
-    }
 
     public int getDepartment() {
         return department;
@@ -56,4 +53,8 @@ public class Employee {
 
     private final int salary;
     private final int department;
+
+    public int getSalary() {
+        return salary;
+    }
 }

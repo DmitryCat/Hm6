@@ -1,10 +1,8 @@
 package com.example.Collection.Service.impl;
 
 import com.example.Collection.Class.Employee;
-import com.example.Collection.Exception.InvalidNameException;
 import com.example.Collection.Service.DepartmentService;
 import com.example.Collection.Service.EmployeeService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -18,6 +16,25 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     public DepartmentServiceImpl(EmployeeService employeeService) {
         this.employeeService = employeeService;
+    }
+
+
+    @Override
+    public List<Employee> getEmployees(Integer departmentId) {
+        return employeeService.getAll().values()
+                .stream()
+                .filter(employee ->  departmentId.equals(employee.getDepartment()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer getSalarySum(Integer departmentId) {
+        return employeeService.getAll().values()
+                .stream()
+                .filter(employee -> departmentId.equals(employee.getDepartment()))
+                .map(Employee::getSalary)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     @Override
@@ -37,20 +54,10 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .min(Comparator.comparingInt(Employee::getSalary))
                 .orElse(null);
     }
-
     @Override
-    public List<Employee> getEmployeeByDepartment(Integer departmentId) {
-        return employeeService.getAll().values()
-                .stream()
-                .filter(employee -> departmentId.equals(employee.getDepartment()))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Map<Integer, List<Employee>> getEmployees() {
+    public Map<Integer, List<Employee>> getGroupByDepartmentEmployees() {
         return employeeService.getAll().values()
                 .stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment));
     }
-
 }
